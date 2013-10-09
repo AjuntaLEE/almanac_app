@@ -1,6 +1,15 @@
 <% provide(:title, 'Home') %>
-<h1>Home page</h1>
-<p>
-  Page d'acceuil de l'Almanac TWR LFBI.
-</p>
+<div class="center hero-unit">
+  <h1><%= greet_user %></h1>
 
+  <h2>
+    Page d'acceuil de l'Almanac TWR LFBI.
+  </h2>
+  <h2>
+    <%= helper_date %>
+  </h2>
+
+  <%= link_to "Inscription", signup_path, class: "btn btn-large btn-primary" %>
+</div>
+
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
