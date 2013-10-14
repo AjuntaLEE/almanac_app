@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   before_validation :encrypt_password
 
+  before_create :create_remember_token
+
 	validates :name, presence: true, length: {maximum: 45}
 	
 	validates :email, presence: true, 
@@ -15,6 +17,15 @@ class User < ActiveRecord::Base
   validates :password_digest, :presence   => true
 
   before_save { self.email = email.downcase }
+
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def User.encrypttoken(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
+
 
 	def self.authenticate(email, submitted_password)
   	user = find_by_email(email)
@@ -31,29 +42,33 @@ class User < ActiveRecord::Base
 
   private
 
-  def encrypt_password
-    puts "encryption password_digest "
-    self.salt = make_salt unless has_password?(password)
-    if secure_hash("#{self.password}") == secure_hash("#{password_confirmation}")
-      self.password_digest = encrypt(password)
-    else 
-      self.password_digest = ""
+    def encrypt_password
+      puts "encryption password_digest "
+      self.salt = make_salt unless has_password?(password)
+      if secure_hash("#{self.password}") == secure_hash("#{password_confirmation}")
+        self.password_digest = encrypt(password)
+      else 
+        self.password_digest = ""
+      end
     end
-  end
 
-  def encrypt(string)
-    puts "encryption core"
-    return secure_hash("#{self.salt}--#{string}")
-  end
+    def encrypt(string)
+      puts "encryption core"
+      return secure_hash("#{self.salt}--#{string}")
+    end
 
-  def make_salt
-    puts "salt generation"
-    return secure_hash("#{Time.now.utc}--#{password}")
-  end
+    def make_salt
+      puts "salt generation"
+      return secure_hash("#{Time.now.utc}--#{password}")
+    end
 
-  def secure_hash(string)
-    puts "generating secure hash"
-    return Digest::SHA2.hexdigest(string)
-  end
+    def secure_hash(string)
+      puts "generating secure hash"
+      return Digest::SHA2.hexdigest(string)
+    end
+
+    def create_remember_token
+      self.remember_token = User.encrypttoken(User.new_remember_token)
+    end
 
 end
