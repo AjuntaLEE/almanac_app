@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
   	if user && user.has_password?(params[:session][:password])
   	  flash[:success] = "#{greet_user} #{user.name}, votre session est désormais active n'oubliez pas de détruire cette session dès que vous n'en avez plus besoin"
       sign_in user
-      redirect_to user
+      redirect_back_or user
   	else
       flash.now[:error] = "Combinaison 'E-mail' <-> 'Mot de passe' inconnue" # Not quite right!
       render 'new'
