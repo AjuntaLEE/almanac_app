@@ -15,6 +15,14 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def accrediteduser?
+    current_user.accrediteduser?
+  end
+
+  def admin?
+    current_user.admin?
+  end
+
   def current_user
     encrypted_remember_token = User.encrypttoken(cookies[:remember_token])
     @current_user ||= User.find_by(remember_token: encrypted_remember_token)

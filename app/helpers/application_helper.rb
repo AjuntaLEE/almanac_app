@@ -1,7 +1,7 @@
 module ApplicationHelper
 	# Returns the full title on a per-page basis.
   def full_title(page_title)
-  	base_title = "TWR-LFBI Almanac App v 0.0.1 (alpha)"
+  	base_title = "TWR-LFBI Almanac App v 0.1.1 (alpha)"
     if page_title.empty?
       base_title
     else

@@ -4,10 +4,21 @@
     <%= link_to full_title(yield(:title)), root_path, id: "logo" %>
     <nav>
       <ul class="nav pull-right">
+        <% if signed_in? %>
+          <% if admin? %>
+            <li><p id="AdminNameHeader"><%="#{current_user.name}"%></p></li>
+          <% elsif accrediteduser? %>
+            <li><p id="UserNameHeader"><%="#{current_user.name}"%></p></li>
+          <% else %>
+            <li><p id="QuerrierNameHeader"><%="#{current_user.name}"%></p></li>
+          <% end %>
+        <% end %>
         <li><%= link_to "Home", root_path %></li>
         <li><%= link_to "Help", help_path %></li>
         <% if signed_in? %>
-          <li><%= link_to "Users", users_path %></li>
+          <% if accrediteduser? %>
+            <li><%= link_to "Users", users_path %></li>
+          <% end %>
           <li id="fat-menu" class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>

@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-
 	def self.authenticate(email, submitted_password)
   	user = find_by_email(email)
   	return nil  if user.nil?
@@ -39,6 +38,22 @@ class User < ActiveRecord::Base
 	# submitted_password.
 		self.password_digest == encrypt(submitted_password)
 	end
+
+  def promote
+    self.admin = true
+  end
+
+  def demote
+    self.admin = false
+  end
+
+  def accredit
+    self.accrediteduser = true
+  end
+
+  def discredit
+    self.accrediteduser = false
+  end
 
   private
 

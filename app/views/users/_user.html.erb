@@ -1,7 +1,30 @@
 <li>
-  <%= link_to user.name, user %>
-  <% if current_user.admin? && !current_user?(user) %>
-    | <%= link_to "delete", user, method: :delete,
-                                  data: { confirm: "Confirmez l'éffacement" } %>
+	<ul class="line" >
+	<% if current_user.admin? %>
+    <% if user.admin? %>
+      <li><%= link_to user.name, user,id: "AdminNameLink" %></li>
+      <% unless current_user?(user) %>
+        <li><%= link_to "Rétrograder", "/users/#{user.id}/demote" ,id: "DemoteLink" %></li>
+      <% end %>
+    <% elsif user.accrediteduser? %>
+      <li><%= link_to user.name, user,id: "UserNameLink" %></li>
+      <li><%= link_to "Promouvoir", "/users/#{user.id}/promote" ,id: "PromoteLink" %></li>
+      <li><%= link_to "Suspendre", "/users/#{user.id}/discredit" ,id: "DemoteLink" %></li>
+    <% else %>
+      <li><%= link_to user.name, user,id: "QuerrierNameLink" %></li>
+      <li><%= link_to "Accréditer", "/users/#{user.id}/accredit" ,id: "PromoteLink" %></li>
+      <li><%= link_to "Supprimer", user,id: "DemoteLink", method: :delete,
+                      data: { confirm: "Confirmez l'éffacement" } %></li>
+    <% end %>
+    <li><%= link_to user.email, user,id: "EmailUserIndexLink" %></li>     
+  <% elsif current_user.accrediteduser? %>
+    <% if user.admin? %>
+      <li><%= link_to user.name, user,id: "AdminNameLink" %></li>
+    <% elsif user.accrediteduser? %>
+      <li><%= link_to user.name, user,id: "UserNameLink" %></li>
+    <% else %>
+      <li><%= link_to user.name, user,id: "QuerrierNameLink" %></li>
+    <% end %>
   <% end %>
+	</ul>
 </li>

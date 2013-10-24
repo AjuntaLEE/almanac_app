@@ -2,6 +2,10 @@ AlmanacApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   root 'static_pages#home'
+  match 'users/:id/accredit',  to: 'users#accredit',         via: 'get'
+  match 'users/:id/discredit',  to: 'users#discredit',         via: 'get'
+  match 'users/:id/promote',  to: 'users#promote',         via: 'get'
+  match 'users/:id/demote',  to: 'users#demote',         via: 'get'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'

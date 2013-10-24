@@ -71,9 +71,36 @@ p {
   font-weight: bold;
   line-height: 1;
   &:hover {
-    color: #fff;
+    color: #aaa;
     text-decoration: none;
   }
+}
+
+#AdminNameHeader {
+  padding-top: 9px;
+  font-size: 1em;
+  color: #f0f;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#UserNameHeader {
+  padding-top: 9px;
+  font-size: 1em;
+  color: #5af;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+
+#QuerrierNameHeader {
+  padding-top: 9px;
+  font-size: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  font-weight: bold;
 }
 
 /* footer */
@@ -169,13 +196,64 @@ input {
 
 .users {
   list-style: none;
-  margin: 0;
   li {
     overflow: auto;
-    padding: 10px 0;
+  }
+}
+
+.line {
+  list-style: none;
+  li {
+    float: left;
+    overflow: auto;
+    padding: 10px 10px;
     border-top: 1px solid $grayLighter;
-    &:last-child {
-      border-bottom: 1px solid $grayLighter;
+    
+    #AdminNameLink {
+      font-size: 1.5em;
+      color: #d0d;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      font-weight: bold;
+      &:hover {color: #f2f;}
     }
+
+    #UserNameLink {
+      font-size: 1.4em;
+      color: #00d;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      font-weight: bold;
+      &:hover {color: #44f;}
+    }
+
+    #QuerrierNameLink {
+      font-size: 1.3em;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      font-weight: bold;
+      &:hover {color: #666;}
+    }
+
+    #PromoteLink {
+      font-size: 1em;
+      color: #2c2;
+      &:hover {color: #4f4;}
+    }
+
+    #DemoteLink {
+      font-size: 1em;
+      color: #c22;
+      &:hover {color: #f44;}
+    }
+
+    #EmailUserIndexLink {
+      font-size: 1em;
+      color: #000;
+      text-transform: lowercase;
+      &:hover {color: #666;}
+    }
+
   }
 }
